@@ -1,0 +1,214 @@
+<?php
+/**
+ * Implements hook_entity_info().
+ */
+function unl_person_entity_info() {
+  $return = array(
+    'unl_person' => array(
+      // First we define some basic information.
+      'label' => t('UNL Person'),
+      'module' => 'unl_person',
+
+      // Then we add some properties that influence how our entities are treated
+      'entity keys' => array( // These keys are the name of properties of entity objects.
+        'id' => 'uid',
+        'label' => 'label',
+      ),
+      'fieldable' => FALSE, // We want to be able to attach fields to our entity.
+      
+      'base table' => NULL, // We don’t have a base table, since entities are remote.
+      'bundles' => array(
+        'unl_person_type' => array( // For the sake of simplicity, we only define one bundle.
+          'label' => t('UNL Person Entity Type'),
+          'admin' => array(
+            'path' => 'admin/config/unl_person', // Field configuration pages for our entity will live at this address.
+          ),
+        ),
+      ),
+
+      'view modes' => array(
+        'teaser' => array(
+          'label' => t('Teaser'),
+          'custom settings' => TRUE,
+        ),
+      ),
+
+      // Finally, we specify what part of our code will be acting on our entities, overriding the defaults. This can be done by specifying callbacks or methods on the entity controller class.
+      'controller class' => 'UNLPersonEntityController', // This is a class located in a separate include file. We’ll get into more details later on.
+      'access callback' => 'unl_person_unl_person_entity_access',
+      'uri callback' => 'unl_person_unl_person_entity_uri',
+    ),
+  );
+
+  return $return;
+}
+
+function unl_person_theme($existing, $type, $theme, $path) {
+  return array(
+    'unl_person' => array(
+      'variables' => array('element' => null),
+      'template' => 'unl_person'
+    ),
+  );
+}
+
+
+/**
+ * Entity access callback for the unl_person entity
+ * @return bool
+ */
+function unl_person_unl_person_entity_access() {
+  return true;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function unl_person_entity_property_info() {
+  //TODO: add other properties
+  $info['unl_person']['properties'] = array(
+    'first_name' => array(
+      'label' => t('Name'),
+      'type' => 'string',
+    ),
+    'uid' => array(
+      'label' => t('UID'),
+      'type' => 'string',
+    ),
+  );
+
+  return $info;
+}
+
+/**
+ * Load a specific entity by UID
+ * 
+ * @param $uid
+ * @return bool|stdClass
+ */
+function unl_person_load_unl_person($uid) {
+  $service = UNLPersonEntityController::$api_url . '?format=json&uid=';
+  
+  if (!$json = @file_get_contents($service . $uid)) {
+    return false;
+  }
+  
+  if (!$json = json_decode($json, true)) {
+    return false;
+  }
+  
+  if (!$entity = unl_person_json_to_unl_person($json)) {
+    return false;
+  }
+  
+  return $entity;
+}
+
+/**
+ * Convert a JSON response to an entity
+ * 
+ * @param $json
+ * @return bool|stdClass
+ */
+function unl_person_json_to_unl_person($json) {
+  if (!isset($json['uid'])) {
+    return false;
+  }
+  
+  if (empty($json['uid'])) {
+    return false;
+  }
+  
+  $entity = unl_person_create_unl_person();
+  
+  $entity->uid = $json['uid'];
+  $entity->first_name = $json['givenName'][0];
+  $entity->last_name = $json['sn'][0];
+  $entity->label = unl_person_get_label($json);
+  $entity->name = $json['cn'][0];
+  
+  if (isset($json['eduPersonPrimaryAffiliation'][0])) {
+    $entity->edu_affiliation = $json['eduPersonPrimaryAffiliation'][0];
+  }
+  
+  if (isset($json['title'][0])) {
+    $entity->title = $json['title'][0];
+  }
+  
+  return $entity;
+}
+
+/**
+ * Get an entity's label from a JSON response
+ * 
+ * @param $json
+ * @return string
+ */
+function unl_person_get_label($json) {
+  $label = 'unknown';
+  
+  if (isset($json['displayName'][0])) {
+    $label = $json['displayName'][0];
+  }
+
+  $details = '';
+  if (isset($json['eduPersonPrimaryAffiliation'][0])) {
+    $details .= unl_person_label_part_sanitize($json['eduPersonPrimaryAffiliation'][0]);
+  }
+
+  if (isset($json['title'][0])) {
+    if (!empty($details)) {
+      $details .= ' - ';
+    }
+    $details .= unl_person_label_part_sanitize($json['title'][0]);
+  }
+  
+  if (!empty($details)) {
+    $label .= ' [' . $details . ']';
+  }
+  
+  return $label;
+}
+
+/**
+ * Sanitize label parts
+ * 
+ * Our label contains information such as affiliation and title, which may contain characters that do not play nice
+ * with the autocomplete function.  Sanitize them with this function
+ * 
+ * @param $string
+ * @return mixed
+ */
+function unl_person_label_part_sanitize($string) {
+  return str_replace(array('[', ']', '(', ')', '/', '-'), '.', $string);
+}
+
+/**
+ * Create an empty entity
+ * 
+ * @return stdClass
+ */
+function unl_person_create_unl_person() {
+  $entity = new stdClass();
+  $entity->type = 'unl_person';
+  $entity->uid = '';
+  $entity->bundle_type = 'unl_person_type';
+  $entity->label = '';
+  $entity->edu_affiliation = '';
+  $entity->title = '';
+  $entity->name = '';
+  $entity->first_name = '';
+  $entity->last_name = '';
+  return $entity;
+}
+
+/**
+ * Load our plugins for entity reference
+ * 
+ * Implements hook_ctools_plugin_person().
+ */
+function unl_person_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'entityreference') {
+    return "plugins/entityreference/$plugin";
+  }
+}
