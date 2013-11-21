@@ -180,7 +180,9 @@ function unl_person_get_label($json) {
  * @return mixed
  */
 function unl_person_label_part_sanitize($string) {
-  return str_replace(array('[', ']', '(', ')', '/', '-'), '.', $string);
+  $string = str_replace(array('[', ']', '(', ')', '/', '-'), '.', $string);
+  $string = preg_replace( '/\s+/', ' ', $string );
+  return $string;
 }
 
 /**
