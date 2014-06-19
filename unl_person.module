@@ -123,9 +123,11 @@ function unl_person_json_to_unl_person($json) {
   
   $entity->uid = $json['uid'];
   $entity->first_name = $json['givenName'][0];
+  $entity->eduPersonNickname = $json['eduPersonNickname'][0];
   $entity->last_name = $json['sn'][0];
   $entity->label = unl_person_get_label($json);
   $entity->name = $json['cn'][0];
+  $entity->unlHRPrimaryDepartment = $json['unlHRPrimaryDepartment'][0];
   
   if (isset($json['eduPersonPrimaryAffiliation'][0])) {
     $entity->edu_affiliation = $json['eduPersonPrimaryAffiliation'][0];
