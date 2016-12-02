@@ -87,9 +87,9 @@ function unl_person_entity_property_info() {
  * @return bool|stdClass
  */
 function unl_person_load_unl_person($uid) {
-  $service = UNLPersonEntityController::$api_url . '?format=json&uid=';
+  $service = UNLPersonEntityController::$api_url . 'people/';
   
-  if (!$json = @file_get_contents($service . $uid)) {
+  if (!$json = @file_get_contents($service . $uid . '.json')) {
     return false;
   }
   
@@ -130,6 +130,7 @@ function unl_person_json_to_unl_person($json) {
   $entity->unlHRPrimaryDepartment = $json['unlHRPrimaryDepartment'][0];
   $entity->edu_affiliation = $json['eduPersonPrimaryAffiliation'][0];
   $entity->title = $json['title'][0];
+  $entity->directoryData = $json;
 
   return $entity;
 }

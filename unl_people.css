@@ -1,183 +1,179 @@
-/* Styles for the vCard. These are flexbile styles, and should be built to accommodate most presentations. */
-/* 
-***************************************************
-
-    Individual Peoplefinder Records
-
-***************************************************
-*/
-.unl_person {
-    margin-bottom: 5px;
+@charset "UTF-8";
+.unl_person .card {
+    margin-bottom: 1em;
+    border-top: 5px solid #d00000;
+    background-color: #fff;
+    box-shadow: 0 0 1px 1px rgba(20, 20, 20, 0.2);
+    transition: all 0.2s ease-out;
 }
-.unl_person a.email .fn {
-    font-size: 18px;
-    font-weight: bold;
-    color: rgb(70, 69, 69) !important;
-    max-height: 35px;
-    min-height: 20px;
-    overflow: hidden;
+.unl_person .card .card-content {
+    padding: 0 1.425rem 1.777em;
 }
-
-img.profile_pic.medium {
-    background: url("images/wdn_idmProfileMedium.png") no-repeat scroll left top transparent;
-    padding: 7px 7px 12px;
+.unl_person .card .card-content > *:last-child,
+.unl_person .card .card-content > .attribute:last-child {
+    margin-bottom: 0;
 }
-
+@media  (min-width: 768px) {
+    .unl_person .card .card-content {
+        padding: 0 1.899rem 2.369em;
+    }
+}
+.unl_person .card h1 {
+    font-size: 2.618rem;
+}
+.unl_person .card h2 {
+    font-size: 2.321rem;
+}
+.unl_person .card .wdn-subhead {
+    margin-bottom: 0;
+}
+.unl_person .card .description {
+    margin: 1em 0 0;
+    padding-top: 1em;
+    border-top: 1px solid #d5d5d2;
+}
 .unl_person .vcard {
-    background:#fff;
-    border:1px solid #dad6b4;
-    border-radius:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    padding:1em;
-    position:relative;
-    overflow:auto;
-    min-height: 148px;
-    padding-bottom:30px;
+    max-width: 480px;
+    margin: 0 auto;
 }
-.unl_person .vcard .vcardInfo .org, .vcard .vcardInfo > .title {
-    background: #f2f9fe; /* Old browsers */
-    background: -moz-linear-gradient(top, #f2f9fe 0%, #e8f2f7 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f9fe), color-stop(100%,#e8f2f7)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #f2f9fe 0%,#e8f2f7 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #f2f9fe 0%,#e8f2f7 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #f2f9fe 0%,#e8f2f7 100%); /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f9fe', endColorstr='#e8f2f7',GradientType=0 ); /* IE6-9 */
-    background: linear-gradient(top, #f2f9fe 0%,#e8f2f7 100%); /* W3C */
-    margin:3px 0;
-    display:inline-block;
-    font-size:0.9em;
-    width:95%;
-    padding:5px;
-    line-height:125%;
-    border-radius:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border:1px solid #D7EBF4;
+.unl_person .vcard .card-profile {
+    background-color: #c1c0be;
+    text-align: center;
+    display: block;
 }
-.unl_person .vcard .vcardInfo .org .title {font-weight:bold;}
-.unl_person .vcard .eppa, .vcard .epa, .vcard .organization-unit, .vcard .tel, .vcf {display:block;}
-.unl_person .vcard .title, .vcard .title .grade {
-    display:block;
-    border-bottom:1px solid #ccd2d5;
-    font-weight:bold;
-    margin-bottom:3px;
-    font-size:105%;
+.unl_person .vcard .card-profile .photo {
+    display: block;
+    height: 200px;
+    margin: 0 auto;
+    width: auto;
 }
-
-.unl_person .vcard .title .major, .vcard .organization-unit, .vcard .organization-name {
-    margin-left:1em;
-    display:block;
-    font-weight:normal;
+.unl_person .vcard .headline {
+    font-size: 2.618rem;
+    line-height: 1;
+    margin-top: 1em;
+    margin-bottom: 1rem;
 }
-.unl_person .vcard a.planetred_profile {
-    float:left;
-    margin-right:15px;
-    width:114px;
+.unl_person .vcard .headline a {
+    font-family: 'Tungsten A', 'Tungsten B', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
-
-.unl_person .vcard .eppa, .vcard .epa {font-style:italic;font-size:0.8em;}
-.unl_person .vcardInfo {margin-left:129px; margin-bottom:3em;}
-.unl_person .vcard .adr, .departmentInfo .adr {
-    border-left:2px solid #CCD2D5;
-    padding-left:5px;
-    margin:5px 0;
-    display:inline-block;
-    max-width:80%;
+.unl_person .vcard .headline + .title {
+    margin: 1em 0;
 }
-.unl_person .vcard .adr .type, .departmentInfo .adr .type {
-    background:#e8f2f7;
-    padding:1px 8px 3px 8px;
-    margin:0 0 5px -5px;
-    display:block;
+.unl_person .vcard .attribute {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', Verdana, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.887rem;
+    margin-bottom: 0.618rem;
 }
-.unl_person .vcard span[class=street-address] {
-    display:block;
-    content: ' ';
+.unl_person .vcard .adr .type {
+    display: none;
 }
-
-.unl_person .vcard span[class=street-address]:after {
-    content: ' ';
+.unl_person .vcard .adr .type + * {
+    display: block;
 }
-
-.unl_person .vcard span[class=locality]:after {
-    content: ', ';
+.unl_person .vcard .adr .street-address {
+    display: block;
 }
-
-.unl_person .vcard span[class=region]:after {
-    content: ' ';
+.unl_person .vcard .adr .country-name {
+    display: none;
 }
-
-.unl_person .vcard .country-name {
-    display:none;
+.unl_person .vcard .tel .type {
+    display: none;
 }
-.unl_person .wdn_vcardTools {
-    position:absolute;
-    bottom:0;
-    left:0;
-    border-top:1px solid #bdb88d;
-    border-bottom:1px solid #e8e5da;
-    background: #f7f3e6; /* Old browsers */
-    background: -moz-linear-gradient(top, #f7f3e6 0%, #e5e0cc 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f3e6), color-stop(100%,#e5e0cc)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #f7f3e6 0%,#e5e0cc 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #f7f3e6 0%,#e5e0cc 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #f7f3e6 0%,#e5e0cc 100%); /* IE10+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f3e6', endColorstr='#e5e0cc',GradientType=0 ); /* IE6-9 */
-    background: linear-gradient(top, #f7f3e6 0%,#e5e0cc 100%); /* W3C */
-    -webkit-background-clip:padding-box;
-    -moz-background-clip:padding-box;
-    background-clip:padding-box;
-    width:100%;
+.unl_person .vcard .tel a.tel {
+    display: block;
+    margin-top: -1.8em;
 }
-.unl_person .vcard .text-vcard, .vcard .img-qrcode, .vcard .print, .vcard .wdn_annotate.on a {
-    background: url('images/iconMimeSprite.png') no-repeat 0 0;
-    padding-left:30px;
-    padding-right:1em;
-    margin:0.2em 0 0.2em 0.8em;
-    display:inline-block;
-    color:#282401 !important;
-    text-shadow:1px 0px 1px #fae5b4;
-    font-weight:bold;
-    line-height:2em;
-    border-right:1px solid #d3cdb5;
+.unl_person .vcard .sis-title {
+    margin: 1em 0;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', Verdana, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.333;
+    text-transform: uppercase;
+    color: #5b5b5a;
 }
-.unl_person div.wdn_annotate.on {display:inline;}
-.unl_person #maincontent .vcard .text-vcard:focus, #maincontent .vcard .img-qrcode:focus, #maincontent .vcard .print:focus, #maincontent .vcard .wdn_annotate.on a:focus{
-    color:#282401 !important;
+.unl_person .vcard .sis-title .grade {
+    display: block;
 }
-.unl_person .vcard .img-qrcode {
-    background-position:0 -199px;
+.unl_person .vcard .sis-title .major,
+.unl_person .vcard .sis-title .college {
+    font-size: 0.786em;
+    display: block;
 }
-.unl_person .vcard .print {
-    background-position:0 -225px;
+.unl_person .vcard .roles {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0;
+    border-bottom: 1px solid #d5d5d2;
 }
-.unl_person .vcard .wdn_annotate.on a {
-    background-position:0 -174px;
+.unl_person .vcard .roles > .org {
+    margin: 1em 0;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', Verdana, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.333;
+    text-transform: uppercase;
+    color: #5b5b5a;
 }
-.unl_person .vcard .text-vcard:after, .vcard .img-qrcode:after, .vcard .print:after, .vcard .email:after, .vcard .wdn_annotate.on a:after {
-    display:none;
+.unl_person .vcard .roles .title {
+    display: block;
 }
-
-.unl_person .unl_person .vcard span.voice, .vcard span.fax, .vcard span.email, .vcard span.url {
-    background:url('images/iconContactSprite.png') no-repeat;
-    padding-left:25px;
-    height:20px;
-    margin-top:5px;
-    margin-bottom:3px;
-    display:block;
+.unl_person .vcard .roles .organization-unit {
+    display: block;
+    font-size: 0.786em;
 }
-.unl_person .vcard span.email, .vcard span.url {
-    background-position:0 -63px;
+.unl_person .vcard .roles .parent-unl .organization-name {
+    display: none;
 }
-.unl_person .vcard span.fax {
-    background-position:0 -84px;
+.unl_person .vcard .eppa {
+    font-style: italic;
+    margin: 1em 0;
 }
-.unl_person .vcard span.url {
-    background-position:0 -42px;
+.unl_person .vcard .fn,
+.unl_person .vcard .given-name,
+.unl_person .vcard .icon-link {
+    vertical-align: middle;
 }
-.unl_person .vcard .permalink {font-size:0.75em; text-transform:uppercase; font-weight:bold; margin-left:1em;}
-.unl_person a.email {background:none;}
-.unl_person div.wdn_annotate.on{margin:0;}
-.unl_person div.wdn_annotate.on a{padding:0 0 0 24px;margin-top:2px;background-color:transparent;background-position:0 2px;border:none;}
-.unl_person img.profile_pic.medium {width:100px;height:100px;}
+.unl_person .vcard .given-name {
+    margin-left: 1em;
+    font-size: 1rem;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', Verdana, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    color: #5b5b5a;
+}
+.unl_person .vcard button {
+    border: 0;
+    background: none;
+    color: #d00000;
+}
+.unl_person .vcard button:focus {
+    outline: 1px dotted;
+}
+.unl_person .vcard-tools {
+    display: none;
+}
+.unl_person .directory-knowledge-section {
+    border-bottom: 1px solid #d5d5d2;
+    padding-bottom: 2em;
+}
+.unl_person .directory-knowledge-section:last-child {
+    border-bottom: 0;
+}
+.unl_person .directory-knowledge-section-bio {
+    margin-top: 2.321em;
+}
+.unl_person .directory-knowledge-section-inner {
+    list-style: none;
+}
+.unl_person .directory-knowledge-section-inner li {
+    margin-bottom: 1em;
+}
+.unl_person .knowledge-grid .vcard {
+    margin-bottom: 1em;
+}

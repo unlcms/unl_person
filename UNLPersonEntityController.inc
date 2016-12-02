@@ -6,7 +6,7 @@ class UNLPersonEntityController extends EntityAPIController {
    * 
    * @var string
    */
-  public static $api_url = 'http://directory.unl.edu/';
+  public static $api_url = 'https://directory.unl.edu/';
 
   public function load($ids = array(), $conditions = array()) {
     if (!is_array($ids)) {
