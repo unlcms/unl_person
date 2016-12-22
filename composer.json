@@ -1,0 +1,20 @@
+{
+  "name": "unlcms/unl-person",
+  "description": "Enables the UNL Person entity and integration into the UNL directory service with entity reference autocomplete support.",
+  "type": "drupal-module",
+  "authors": [
+    {
+      "name": "Michael Fairchild",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Kevin Abel",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Eric Rasmussen (ericras)",
+      "homepage": "https://www.drupal.org/u/ericras",
+      "role": "Maintainer"
+    }
+  ]
+}

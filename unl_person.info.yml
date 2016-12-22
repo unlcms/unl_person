@@ -1,0 +1,8 @@
+name: 'UNL Person Entity'
+description: 'Enables the UNL Person entity and integration into the UNL directory service with entity reference autocomplete support.'
+package: 'UNL'
+type: module
+core: 8.x
+version: 1.x
+dependencies:
+  - entityreference
