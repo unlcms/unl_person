@@ -7,6 +7,7 @@ function unl_person_entity_info() {
     'unl_person' => array(
       // First we define some basic information.
       'label' => t('UNL Person'),
+      'plural label' => t('UNL People'),
       'module' => 'unl_person',
 
       // Then we add some properties that influence how our entities are treated
@@ -20,9 +21,6 @@ function unl_person_entity_info() {
       'bundles' => array(
         'unl_person_type' => array( // For the sake of simplicity, we only define one bundle.
           'label' => t('UNL Person Entity Type'),
-          'admin' => array(
-            'path' => 'admin/config/unl_person', // Field configuration pages for our entity will live at this address.
-          ),
         ),
       ),
 
@@ -35,7 +33,6 @@ function unl_person_entity_info() {
 
       // Finally, we specify what part of our code will be acting on our entities, overriding the defaults. This can be done by specifying callbacks or methods on the entity controller class.
       'controller class' => 'UNLPersonEntityController', // This is a class located in a separate include file. We’ll get into more details later on.
-      'access callback' => 'unl_person_unl_person_entity_access',
       'uri callback' => 'unl_person_unl_person_entity_uri',
     ),
   );
@@ -50,15 +47,6 @@ function unl_person_theme($existing, $type, $theme, $path) {
       'template' => 'unl_person'
     ),
   );
-}
-
-
-/**
- * Entity access callback for the unl_person entity
- * @return bool
- */
-function unl_person_unl_person_entity_access() {
-  return true;
 }
 
 /**
@@ -87,9 +75,9 @@ function unl_person_entity_property_info() {
  * @return bool|stdClass
  */
 function unl_person_load_unl_person($uid) {
-  $service = UNLPersonEntityController::$api_url . '?format=json&uid=';
+  $service = UNLPersonEntityController::$api_url . 'people/';
   
-  if (!$json = @file_get_contents($service . $uid)) {
+  if (!$json = @file_get_contents($service . $uid . '.json')) {
     return false;
   }
   
@@ -130,6 +118,7 @@ function unl_person_json_to_unl_person($json) {
   $entity->unlHRPrimaryDepartment = $json['unlHRPrimaryDepartment'][0];
   $entity->edu_affiliation = $json['eduPersonPrimaryAffiliation'][0];
   $entity->title = $json['title'][0];
+  $entity->directoryData = $json;
 
   return $entity;
 }
