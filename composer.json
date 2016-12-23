@@ -1,5 +1,5 @@
 {
-  "name": "unlcms/unl-person",
+  "name": "unlcms/unl_person",
   "description": "Enables the UNL Person entity and integration into the UNL directory service with entity reference autocomplete support.",
   "type": "drupal-module",
   "authors": [
