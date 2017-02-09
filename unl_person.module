@@ -30,7 +30,8 @@ function unl_person_entity_info() {
           'custom settings' => TRUE,
         ),
       ),
-      'access callback' => 'node_access',
+
+      'access callback' => 'unl_person_access',
 
       // Finally, we specify what part of our code will be acting on our entities, overriding the defaults. This can be done by specifying callbacks or methods on the entity controller class.
       'controller class' => 'UNLPersonEntityController', // This is a class located in a separate include file. We’ll get into more details later on.
@@ -199,4 +200,11 @@ function unl_person_ctools_plugin_directory($module, $plugin) {
   if ($module == 'entityreference') {
     return "plugins/entityreference/$plugin";
   }
+}
+
+/**
+ * Access callback for the entity.
+ */
+function unl_person_access($op, $entity = NULL, $account = NULL, $entity_type) {
+  return TRUE;
 }
