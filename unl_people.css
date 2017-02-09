@@ -1,33 +1,35 @@
 @charset "UTF-8";
-.unl_person .card {
+.unl_person {
     margin-bottom: 1em;
+}
+.unl_person .vcard {
     border-top: 5px solid #d00000;
     background-color: #fff;
     box-shadow: 0 0 1px 1px rgba(20, 20, 20, 0.2);
     transition: all 0.2s ease-out;
 }
-.unl_person .card .card-content {
+.unl_person .vcard .vcardInfo {
     padding: 0 1.425rem 1.777em;
 }
-.unl_person .card .card-content > *:last-child,
-.unl_person .card .card-content > .attribute:last-child {
+.unl_person .vcard .vcardInfo > *:last-child,
+.unl_person .vcard .vcardInfo > .attribute:last-child {
     margin-bottom: 0;
 }
 @media  (min-width: 768px) {
-    .unl_person .card .card-content {
+    .unl_person .vcard .vcardInfo {
         padding: 0 1.899rem 2.369em;
     }
 }
-.unl_person .card h1 {
+.unl_person .vcard h1 {
     font-size: 2.618rem;
 }
-.unl_person .card h2 {
+.unl_person .vcard h2 {
     font-size: 2.321rem;
 }
-.unl_person .card .wdn-subhead {
+.unl_person .vcard .wdn-subhead {
     margin-bottom: 0;
 }
-.unl_person .card .description {
+.unl_person .vcard .description {
     margin: 1em 0 0;
     padding-top: 1em;
     border-top: 1px solid #d5d5d2;
@@ -43,7 +45,7 @@
 }
 .unl_person .vcard .card-profile .photo {
     display: block;
-    height: 200px;
+    height: 150px;
     margin: 0 auto;
     width: auto;
 }
@@ -158,6 +160,15 @@
 .unl_person .vcard-tools {
     display: none;
 }
+
+.unl_person .directory-knowledge-summary {
+    width: 100%;
+}
+.unl_person .directory-knowledge-section {
+    display: none;
+}
+
+/**
 .unl_person .directory-knowledge-section {
     border-bottom: 1px solid #d5d5d2;
     padding-bottom: 2em;
@@ -177,3 +188,4 @@
 .unl_person .knowledge-grid .vcard {
     margin-bottom: 1em;
 }
+**/
