@@ -6,9 +6,11 @@ $partial_url = $url . '.partial';
   <a href="<?php echo $url ?>"><?php echo $unl_person->first_name ?> <?php echo $unl_person->last_name ?></a>
 </div>
 <script>
-    require(['jquery'], function($) {
-        $.get('<?php echo $partial_url?>', function(data) {
-            $('.unl_person_<?php echo $unl_person->uid; ?>').html(data);
+    document.addEventListener("DOMContentLoaded", function(event) {
+        require(['jquery'], function ($) {
+            $.get('<?php echo $partial_url?>', function (data) {
+                $('.unl_person_<?php echo $unl_person->uid; ?>').html(data);
+            });
         });
     });
 </script>
