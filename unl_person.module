@@ -77,20 +77,25 @@ function unl_person_entity_property_info() {
  * @return bool|stdClass
  */
 function unl_person_load_unl_person($uid) {
-  $service = UNLPersonEntityController::$api_url . 'people/';
-  
-  if (!$result = drupal_http_request($service . $uid . '.json')) {
-    return false;
+  $call = __FUNCTION__ . '_' . $uid;
+  $entity = &drupal_static($call);
+
+  if (!isset($entity)) {
+    $service = UNLPersonEntityController::$api_url . 'people/';
+
+    if (!$result = drupal_http_request($service . $uid . '.json')) {
+      return FALSE;
+    }
+
+    if (isset($result->error) || !isset($result->data) || !$json = json_decode($result->data, TRUE)) {
+      return FALSE;
+    }
+
+    if (!$entity = unl_person_json_to_unl_person($json)) {
+      return FALSE;
+    }
   }
 
-  if (isset($result->error) || !isset($result->data) || !$json = json_decode($result->data, true)) {
-    return false;
-  }
-  
-  if (!$entity = unl_person_json_to_unl_person($json)) {
-    return false;
-  }
-  
   return $entity;
 }
 
