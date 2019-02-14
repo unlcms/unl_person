@@ -81,18 +81,25 @@ function unl_person_load_unl_person($uid) {
   $entity = &drupal_static($call);
 
   if (!isset($entity)) {
-    $service = UNLPersonEntityController::$api_url . 'people/';
-
-    if (!$result = drupal_http_request($service . $uid . '.json')) {
-      return FALSE;
+    if ($cache = cache_get($call)) {
+      $entity = $cache->data;
     }
+    else {
+      $service = UNLPersonEntityController::$api_url . 'people/';
 
-    if (isset($result->error) || !isset($result->data) || !$json = json_decode($result->data, TRUE)) {
-      return FALSE;
-    }
+      if (!$result = drupal_http_request($service . $uid . '.json')) {
+        return FALSE;
+      }
 
-    if (!$entity = unl_person_json_to_unl_person($json)) {
-      return FALSE;
+      if (isset($result->error) || !isset($result->data) || !$json = json_decode($result->data, TRUE)) {
+        return FALSE;
+      }
+
+      if (!$entity = unl_person_json_to_unl_person($json)) {
+        return FALSE;
+      }
+
+      cache_set($call, $entity, 'cache', CACHE_TEMPORARY);
     }
   }
 
