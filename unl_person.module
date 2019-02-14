@@ -79,11 +79,11 @@ function unl_person_entity_property_info() {
 function unl_person_load_unl_person($uid) {
   $service = UNLPersonEntityController::$api_url . 'people/';
   
-  if (!$json = @file_get_contents($service . $uid . '.json')) {
+  if (!$result = drupal_http_request($service . $uid . '.json')) {
     return false;
   }
-  
-  if (!$json = json_decode($json, true)) {
+
+  if (isset($result->error) || !isset($result->data) || !$json = json_decode($result->data, true)) {
     return false;
   }
   
