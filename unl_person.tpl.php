@@ -7,9 +7,17 @@ $partial_url = $url . '.partial';
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
-        require(['jquery'], function ($) {
-            $.get('<?php echo $partial_url?>', function (data) {
-                $('.unl_person_<?php echo $unl_person->uid; ?>').html(data);
+        require(['jquery'], function($) {
+            $.get('<?php echo $partial_url?>', function(data) {
+                var vcard;
+                if ($('.vcard', $.parseHTML(data)).length > 0) {
+                    // Someone with Knowledge data
+                    var vcard = $('.vcard', $.parseHTML(data));
+                } else {
+                    // Someone without Knowledge data
+                    var vcard = $($.parseHTML(data)).filter('.vcard');
+                }
+                $('.unl_person_<?php echo $unl_person->uid; ?>').html(vcard);
             });
         });
     });
